@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 public class GameHelper {
 	private enum ShipDirection{x, y};
+	private int testCount = 0;
 
 	public String getUserInput(String prompt){
 		String inputLine = null;
@@ -20,6 +21,10 @@ public class GameHelper {
 		return inputLine;
 	}
 
+	public String testInput(){
+		return new String("A" + Integer.toString(testCount++));
+	}
+	
 	public ArrayList<String> getRandomLocation(){
 		ArrayList<String> locationList = new ArrayList<String>();
 		ShipDirection shipDirection = getRandomDirection();

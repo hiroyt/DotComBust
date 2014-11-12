@@ -8,8 +8,11 @@ public class DotComBust {
 	private int fireCount;
 	GameHelper helper;
 	
-	public void setUpGame(ArrayList<DotCom> dotComList){
+	public DotComBust(){
 		helper = new GameHelper();
+	}
+	
+	public void setUpGame(ArrayList<DotCom> dotComList){
 		printStartMessage();
 		fireCount = 0;
 		for(int i = 0; i < SHIP_NUMBER; i++){
@@ -33,16 +36,19 @@ public class DotComBust {
 			fireCount++;
 			// todo: ユーザ入力を有効にする
 //			String location = helper.getUserInput("enter ship location");
-			String location = "A1";
-			// todo: checkUserGess()にlocationを渡す
-			checkUserGuess(dotComList, location);
+			checkUserGuess(dotComList, helper.testInput());
 		}
 	}
 	
 	private void checkUserGuess(ArrayList<DotCom> dotComList
 			, String location){
-		// todo: 判定処理を実装する
-		dotComList.remove(0);
+		int listNum = dotComList.size();
+		for(int i = 0; i < listNum; i++){
+			if(dotComList.get(i).fire(location).equals(DotCom.SUNK)){
+				dotComList.remove(i);
+				return;
+			}
+		}
 	}
 	
 	public void finishGame(){

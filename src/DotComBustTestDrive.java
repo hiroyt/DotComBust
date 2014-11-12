@@ -6,9 +6,9 @@ public class DotComBustTestDrive {
 	static final String FAIL = ": FAIL";
 	
 	public static void main(String[] args){
-		setUpGameTest();
+//		setUpGameTest();
 		startPlayTest();
-		finishGameTest();
+//		finishGameTest();
 	}
 
 	private static void setUpGameTest(){
@@ -62,10 +62,11 @@ public class DotComBustTestDrive {
 		ArrayList<DotCom> dotComList = new ArrayList<DotCom>();
 		DotCom dotCom = new DotCom();
 		ArrayList<String> location = new ArrayList<String>();
-		location.add("A0");
+		location.add("A5");
 		dotCom.setLocation(location);
 		dotComList.add(dotCom);
 		dotComBust.startPlay(dotComList);
+		dotComBust.finishGame();
 		System.out.println(TEST_NAME + OK);
 	}
 	
