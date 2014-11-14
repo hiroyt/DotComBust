@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class DotCom {
 	public static final String HIT = "hit";
 	public static final String MISS = "miss";
-	public static final String SUNK = "you sunk Simple.com";
+	public static final String SUNK = "sunk";
 	public static final int SHIP_SIZE = 3;
 	private ArrayList<String>  shipLocation;
 	private String shipName;

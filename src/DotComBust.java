@@ -34,21 +34,29 @@ public class DotComBust {
 	public void startPlay(ArrayList<DotCom> dotComList){
 		while(!dotComList.isEmpty()){
 			fireCount++;
-			// todo: ユーザ入力を有効にする
-//			String location = helper.getUserInput("enter ship location");
-			checkUserGuess(dotComList, helper.testInput());
+			checkUserGuess(dotComList
+					, helper.getUserInput("enter ship location"));
 		}
 	}
 	
 	private void checkUserGuess(ArrayList<DotCom> dotComList
 			, String location){
 		int listNum = dotComList.size();
+		String message = DotCom.MISS;
 		for(int i = 0; i < listNum; i++){
-			if(dotComList.get(i).fire(location).equals(DotCom.SUNK)){
+			DotCom dotCom = dotComList.get(i);
+			String result = dotCom.fire(location);
+			if(result.equals(DotCom.SUNK)){
+				message = dotCom.getName() + " " +  DotCom.SUNK + "!";
 				dotComList.remove(i);
-				return;
+				break;
+			}
+			else if(result.equals(DotCom.HIT)){
+				message = dotCom.getName() + " " +  DotCom.HIT + "!";
+				break;
 			}
 		}
+		System.out.println(message);
 	}
 	
 	public void finishGame(){

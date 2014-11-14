@@ -7,8 +7,9 @@ public class DotComBustTestDrive {
 	
 	public static void main(String[] args){
 //		setUpGameTest();
-		startPlayTest();
+//		startPlayTest();
 //		finishGameTest();
+		appDemo();
 	}
 
 	private static void setUpGameTest(){
@@ -58,13 +59,20 @@ public class DotComBustTestDrive {
 	
 	private static void startPlayTest(){
 		final String TEST_NAME = "startPlayTest";
-		DotComBust dotComBust = new DotComBust();
-		ArrayList<DotCom> dotComList = new ArrayList<DotCom>();
-		DotCom dotCom = new DotCom();
+
 		ArrayList<String> location = new ArrayList<String>();
-		location.add("A5");
+		location.add("A0");
+		location.add("A1");
+		location.add("A2");
+		
+		DotCom dotCom = new DotCom();
 		dotCom.setLocation(location);
+		dotCom.setName("test.com");
+
+		ArrayList<DotCom> dotComList = new ArrayList<DotCom>();
 		dotComList.add(dotCom);
+
+		DotComBust dotComBust = new DotComBust();
 		dotComBust.startPlay(dotComList);
 		dotComBust.finishGame();
 		System.out.println(TEST_NAME + OK);
@@ -78,6 +86,16 @@ public class DotComBustTestDrive {
 		dotComBust.startPlay(dotComList);
 		dotComBust.finishGame();
 		System.out.println(TEST_NAME + OK);
+	}
+	
+	private static void appDemo(){
+		final String TEST_NAME = "appDemo";
+		ArrayList<DotCom> dotComList = new ArrayList<DotCom>();
+		DotComBust dotComBust = new DotComBust();
+		dotComBust.setUpGame(dotComList);
+		dotComBust.startPlay(dotComList);
+		dotComBust.finishGame();
+		System.out.println(TEST_NAME + " finish");
 	}
 	
 	private static void printError(String testName
