@@ -28,7 +28,7 @@ public class GameHelper {
 	public ArrayList<String> getRandomLocation(){
 		ArrayList<String> locationList = new ArrayList<String>();
 		ShipDirection shipDirection = getRandomDirection();
-		char xCell = 'A';
+		char xCell = 'a';
 		char yCell = '0';		
 		if(shipDirection == ShipDirection.x){
 			xCell += getRandomStartCellValue(DotCom.SHIP_SIZE, DotComBust.LOCATION_MAX);
@@ -38,7 +38,7 @@ public class GameHelper {
 			xCell += getRandomStartCellValue(1, DotComBust.LOCATION_MAX);
 			yCell += getRandomStartCellValue(DotCom.SHIP_SIZE, DotComBust.LOCATION_MAX);
 		}
-		for(int i = 0; i < DotComBust.SHIP_NUMBER; i++){
+		for(int i = 0; i < DotCom.SHIP_SIZE; i++){
 			//  要素7x7の配列上
 			locationList.add(String.valueOf(xCell) + String.valueOf(yCell));
 			if(shipDirection == ShipDirection.x){
@@ -49,6 +49,20 @@ public class GameHelper {
 			}
 		}
 		return locationList;
+	}
+	
+	public String getLocationMessage(String name, ArrayList<String> location){
+		String allLocation = name + " location is [ ";
+		for(int i=0; i<location.size(); i++){
+			allLocation += location.get(i);
+			if(i == (location.size() - 1)){
+				allLocation += " ]";
+			}
+			else{
+				allLocation += ", ";
+			}
+		}
+		return allLocation;
 	}
 	
 	private ShipDirection getRandomDirection(){

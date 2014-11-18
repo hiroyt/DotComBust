@@ -7,6 +7,7 @@ public class DotCom {
 	public static final int SHIP_SIZE = 3;
 	private ArrayList<String>  shipLocation;
 	private String shipName;
+	GameHelper helper = new GameHelper();
 	
 	DotCom(){
 		shipName = null;
@@ -23,6 +24,8 @@ public class DotCom {
 		return true;
 	}
 	public String fire(String targetLocation){
+		// todo: delete debug print
+		System.out.println(helper.getLocationMessage(shipName, shipLocation));
 		int index = shipLocation.indexOf(targetLocation);
 		if(index >= 0){
 			shipLocation.remove(index);
@@ -33,6 +36,7 @@ public class DotCom {
 		}
 		return MISS;
 	}
+	
 	public ArrayList<String> getLocationList() {
 		return shipLocation;
 	}
