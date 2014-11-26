@@ -5,15 +5,18 @@ public class DotComBust {
 	public static final int SHIP_NUMBER = 2;
 	public static final String GAME_TITLE = "DotComBust";
 	private int fireCount;
-	GameHelper helper;
+	private GameHelper helper;
+	private DotCom.LocationStatus[][] map;
 	
 	public DotComBust(){
 		helper = new GameHelper();
+		map = new DotCom.LocationStatus[LOCATION_MAX][LOCATION_MAX];
 	}
 	
 	public void setUpGame(ArrayList<DotCom> dotComList){
 		printStartMessage();
 		fireCount = 0;
+		helper.initStatusMap(map);
 		for(int i = 0; i < SHIP_NUMBER; i++){
 			DotCom dotCom = new DotCom();
 			dotCom.setName(Integer.toString(i) + ".com");
@@ -31,19 +34,22 @@ public class DotComBust {
 	}
 	
 	public void startPlay(ArrayList<DotCom> dotComList){
+		
 		while(!dotComList.isEmpty()){
 			fireCount++;
-			checkUserGuess(dotComList
-					, helper.getUserInput("enter ship location"));
-			// todo: print current result by location map.
+			String location = helper.getUserInput("enter ship location");
+			String result = checkUserGuess(dotComList
+					, location);
+			helper.printStatusMap(map);
 		}
 	}
 	
-	private void checkUserGuess(ArrayList<DotCom> dotComList
+	private String checkUserGuess(ArrayList<DotCom> dotComList
 			, String location){
 		String message = DotCom.MISS;
+		String result = DotCom.MISS;
 		for(DotCom dotCom: dotComList){
-			String result = dotCom.fire(location);
+			result = dotCom.fire(location);
 			if(result.equals(DotCom.SUNK)){
 				message = dotCom.getName() + " " +  DotCom.SUNK + "!";
 				dotComList.remove(dotCom);
@@ -55,6 +61,8 @@ public class DotComBust {
 			}
 		}
 		System.out.println(message);
+		helper.setStatusMap(result, map, location);
+		return result;
 	}
 	
 	public void finishGame(){

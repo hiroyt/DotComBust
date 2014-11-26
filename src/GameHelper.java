@@ -64,7 +64,31 @@ public class GameHelper {
 		}
 		return allLocation;
 	}
-	
+
+	public void initStatusMap(DotCom.LocationStatus[][] map){
+		for(int i = 0; i < DotComBust.LOCATION_MAX; i++){
+			for(int j = 0; j < DotComBust.LOCATION_MAX; j++){
+				map[i][j] = DotCom.LocationStatus.none;
+			}
+		}
+	}
+
+	public void setStatusMap(String result
+			, DotCom.LocationStatus[][] map
+			, String location) {
+		// todo: get map index from location 
+		// use String.charAt() ?
+		if(result.equals(DotCom.MISS)){
+			map[i][j] = DotCom.LocationStatus.miss;
+		}
+		else if(result.equals(DotCom.HIT)){
+			map[i][j] = DotCom.LocationStatus.hit;
+		}
+		else if(result.equals(DotCom.SUNK)){
+			map[i][j] = DotCom.LocationStatus.sunk;
+		}
+	}
+
 	private ShipDirection getRandomDirection(){
 		if((int)(Math.random() * 2) == 0){
 			return ShipDirection.x;
@@ -74,5 +98,27 @@ public class GameHelper {
 	
 	private int getRandomStartCellValue(int useLocationSize, int locationMax){
 		return (int)(Math.random() * (locationMax - useLocationSize + 1));
+	}
+
+	public void printStatusMap(DotCom.LocationStatus[][] map) {
+		for(int i = 0; i <DotComBust.LOCATION_MAX; i++){
+			for(int j = 0; j < DotComBust.LOCATION_MAX; j++){
+				switch(map[i][j]){
+					case none:
+						System.out.print(" -");
+						break;
+					case miss:
+						System.out.print(" m");
+						break;
+					case hit:
+						System.out.print(" h");
+						break;
+					case sunk:
+						System.out.print(" s");
+						break;
+				}
+			}
+			System.out.println("");
+		}
 	}
 }

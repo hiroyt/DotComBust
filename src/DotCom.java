@@ -5,6 +5,7 @@ public class DotCom {
 	public static final String MISS = "miss";
 	public static final String SUNK = "sunk";
 	public static final int SHIP_SIZE = 3;
+	public static enum LocationStatus{hit, miss, sunk, none};
 	private ArrayList<String>  shipLocation;
 	private String shipName;
 	GameHelper helper = new GameHelper();
