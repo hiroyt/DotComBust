@@ -38,9 +38,11 @@ public class DotComBust {
 		while(!dotComList.isEmpty()){
 			fireCount++;
 			String location = helper.getUserInput("enter ship location");
-			String result = checkUserGuess(dotComList
-					, location);
-			helper.printStatusMap(map);
+			if(location != null){
+				String result = checkUserGuess(dotComList
+						, location);
+				helper.printStatusMap(map);
+			}
 		}
 	}
 	

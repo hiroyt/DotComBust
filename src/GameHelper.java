@@ -17,6 +17,7 @@ public class GameHelper {
 			}
 		} catch(IOException e){
 			System.out.println("IOCxception: " + e);
+			return null;
 		}
 		return inputLine;
 	}
@@ -73,20 +74,39 @@ public class GameHelper {
 		}
 	}
 
+	private int[] getLocationCellIndex(String location){
+		if(location.length() != 2) return null;
+		if((location.charAt(0) < 'a')
+				|| (location.charAt(0) >= ('a' + DotComBust.LOCATION_MAX))
+				|| (location.charAt(1) < '0')
+				|| (location.charAt(1) >= ('0' + DotComBust.LOCATION_MAX))){
+			return null;
+		}
+		int[] locationIndex = new int[2];
+		locationIndex[0] = location.charAt(0) - 'a'; // x
+		locationIndex[1] = location.charAt(1) - '0'; // y
+		return locationIndex;
+	}
+	
 	public void setStatusMap(String result
 			, DotCom.LocationStatus[][] map
 			, String location) {
-		// todo: get map index from location 
-		// use String.charAt() ?
+		int[] locationIndex = getLocationCellIndex(location);
+		if(locationIndex == null){
+			return;
+		}
+		DotCom.LocationStatus setStatus;
 		if(result.equals(DotCom.MISS)){
-			map[i][j] = DotCom.LocationStatus.miss;
+			setStatus = DotCom.LocationStatus.miss;
 		}
 		else if(result.equals(DotCom.HIT)){
-			map[i][j] = DotCom.LocationStatus.hit;
+			setStatus = DotCom.LocationStatus.hit;
 		}
-		else if(result.equals(DotCom.SUNK)){
-			map[i][j] = DotCom.LocationStatus.sunk;
+		else{
+			setStatus = DotCom.LocationStatus.sunk;
 		}
+		// todo: update if status is none 
+		map[locationIndex[0]][locationIndex[1]] = setStatus;
 	}
 
 	private ShipDirection getRandomDirection(){
@@ -101,11 +121,12 @@ public class GameHelper {
 	}
 
 	public void printStatusMap(DotCom.LocationStatus[][] map) {
-		for(int i = 0; i <DotComBust.LOCATION_MAX; i++){
-			for(int j = 0; j < DotComBust.LOCATION_MAX; j++){
-				switch(map[i][j]){
+		// todo: print x, y label
+		for(int y = 0; y <DotComBust.LOCATION_MAX; y++){
+			for(int x = 0; x < DotComBust.LOCATION_MAX; x++){
+				switch(map[x][y]){
 					case none:
-						System.out.print(" -");
+						System.out.print(" o");
 						break;
 					case miss:
 						System.out.print(" m");
